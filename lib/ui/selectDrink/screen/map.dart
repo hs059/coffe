@@ -17,57 +17,69 @@ class _MyMapState extends State<MyMap> {
   };
   GoogleMapController controller;
 
-  LatLng myLocation ;
+  LatLng myLocation;
+
   Future<LatLng> getCurrentLocation() async {
     Geolocator geolocator = Geolocator();
     Position position = await geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-     myLocation = LatLng(position.latitude, position.longitude);
-  return myLocation;
-  }
-  AnimateCamera(LatLng location){
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: location , zoom: 15
-    ),),);
-    setState(() {
-
-    });
+        desiredAccuracy: LocationAccuracy.low);
+    myLocation = LatLng(position.latitude, position.longitude);
+    return myLocation;
   }
 
-
+  AnimateCamera(LatLng location) {
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+//            bearing: 30,
+tilt:40 ,
+            target: location,
+            zoom: 13.2),
+      ),
+    );
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future:getCurrentLocation() ,
+    return FutureBuilder<LatLng>(
+      future: getCurrentLocation(),
       builder: (context, snapshot) {
-        if(getCurrentLocation() !=null ){
+        if (snapshot.hasData) {
           return GoogleMap(
-            onMapCreated: (controller)async {
-              this.controller =controller;
+
+            onMapCreated: (controller) async {
+              this.controller = controller;
               await getCurrentLocation();
-              AnimateCamera(flutterCoffee);
+              AnimateCamera(
+                  flutterCoffee,
+              );
             },
             onTap: (argument) {
               myMarkers.add(
                 Marker(
-                  markerId: MarkerId('$argument'),
+                  markerId: MarkerId('argument'),
                   position: LatLng(argument.latitude, argument.longitude),
                 ),
               );
               setState(() {});
             },
-            markers: myMarkers,
+            markers: { ...?myMarkers ,
+              Marker(
+                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+              markerId: MarkerId('argument'),
+              position: LatLng(myLocation.latitude, myLocation.longitude),
+            ),
+            },
             initialCameraPosition: CameraPosition(
               target: myLocation,
-              zoom: 20.0,
+              zoom: 18.0,
             ),
           );
-        } else{return CircularProgressIndicator();}
-
-    },
-
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
-
   }
 }

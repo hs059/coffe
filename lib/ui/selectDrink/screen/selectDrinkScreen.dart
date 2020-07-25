@@ -1,15 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffe/auth.dart';
 import 'package:coffe/constant.dart';
-import 'package:coffe/provider/order_provider.dart';
-import 'package:coffe/repositories/orderClient.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
 import 'package:coffe/ui/selectDrink/screen/map.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
 import 'about.dart';
 import 'allOrderScreen.dart';
 import 'myCard.dart';
@@ -70,18 +65,6 @@ class SelectDrinkScreen extends StatelessWidget {
           children: [
             AllOrderScreen(),
              MyMap(),
-//            Container(
-//              width: double.infinity,
-//              decoration: BoxDecoration(
-//                color: Color(0xFFF8E8D4),
-//                image: DecorationImage(
-//                  fit: BoxFit.cover,
-//                  image: AssetImage(
-//                    'images/cooo.png',
-//                  ),
-//                ),
-//              ),
-//            ),
             ProductSection(),
             About(),
           ],

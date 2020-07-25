@@ -31,7 +31,7 @@ class Auth {
       assert(authResult.user != null);
 
       String userId = authResult.user.uid;
-      print(userId);
+
       sharedPreferences.setString('userId', userId);
       sharedPreferences.setBool('isLogin', true);
       return userId;
@@ -43,15 +43,15 @@ class Auth {
   Future<String> getUserId() async {
     sharedPreferences = await initSp();
     String userId = sharedPreferences.getString('userId');
-    print(userId);
     return userId;
   }
+
   Future<bool> getIsLogin() async {
     sharedPreferences = await initSp();
     bool isLogin = sharedPreferences.getBool('isLogin');
-    print(isLogin);
     return isLogin;
   }
+
   Future<String> loginUsingEmailAndPassword(
       {String email, String password}) async {
     try {
@@ -82,7 +82,6 @@ class Auth {
           idToken: idToken, accessToken: accessToken);
       AuthResult authResult =
           await firebaseAuth.signInWithCredential(authCredential);
-
 
       String userId = authResult.user.uid;
       print(userId);

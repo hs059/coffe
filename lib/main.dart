@@ -2,6 +2,7 @@ import 'package:coffe/auth.dart';
 import 'package:coffe/provider/db_provider.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
+import 'package:coffe/ui/admin/adminOrderScreen.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
 import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +13,20 @@ import 'ui/splash/splashScreen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool check = await Auth.auth.getIsLogin();
+ String userId = await Auth.auth.getUserId() ;
   Widget screen ;
-  if (check == null || check == false) {
-    screen = HomeScreen();
-  } else {
-    screen = SelectDrinkScreen();
+
+
+  if(userId=='tHGHQx5g9QVBtgWlcR51Lc3aAYw1'){
+   screen = AdminOrderScreen();
+ }else{
+    if (check == null || check == false) {
+      screen = HomeScreen();
+    } else {
+      screen = SelectDrinkScreen();
+    }
   }
+
 
   runApp(MyApp(screen));
 }
