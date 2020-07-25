@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:coffe/auth.dart';
 import 'package:coffe/models/order.dart';
@@ -5,12 +7,15 @@ import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:coffe/provider/db_provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:coffe/models/products.dart';
 import 'package:coffe/constant.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class MyCard extends StatelessWidget {
   String userId;
+
   @override
   Widget build(BuildContext context) {
     DBProvider dbProvider = Provider.of<DBProvider>(context, listen: false);
@@ -46,193 +51,215 @@ class MyCard extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: allProducts.length,
                   itemBuilder: (context, index) {
-                    return ExpansionTile(
-                      backgroundColor: Color(0xFFF8E8D4),
-                      leading: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
+                    return Slidable(
+                      actionPane: SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
+                      actions: <Widget>[
+                        IconSlideAction(
+                          caption: 'Delete',
+                          color: Colors.red,
+                          icon: Icons.delete,
+                          onTap: () {
                             dbProvider.deleteProduct(allProducts[index]);
-                          }),
-                      title: Text(
-                        allProducts[index].typeCoffee,
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 18,
-                        ),
-                      ),
-                      children: <Widget>[
-                        Center(
-                          child: Text(
-                            '${allProducts[index].typeCoffee}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              color: kSecondTextColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Image.asset(
-                          allProducts[index].image,
-                          height: 30,
-                        ),
-                        Divider(
-                          color: kPrimaryColor,
-                        ),
-                        Container(
-                          //height: 100,
-                          //color: Colors.cyanAccent,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Price',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: kSecondTextColor,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    '${allProducts[index].price}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.brown[300],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Text(
-                                    '${allProducts[index].numCup}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.brown[300],
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'Cups',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: kSecondTextColor,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          color: kPrimaryColor,
-                        ),
-                        Container(
-                          //color: Colors.deepOrange,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                'Size',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: kSecondTextColor,
-                                ),
-                              ),
-                              Text(
-                                allProducts[index].size == 1
-                                    ? 'Small'
-                                    : allProducts[index].size == 2
-                                        ? 'Middle '
-                                        : 'Large',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: kSecondTextColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          color: kPrimaryColor,
-                        ),
-                        Container(
-                          //height: 100,
-                          //color: Colors.cyanAccent,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Text(
-                                    'Sugar',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: kSecondTextColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                allProducts[index].sugar == 1
-                                    ? 'Small'
-                                    : allProducts[index].sugar == 2
-                                        ? 'Middle '
-                                        : 'Large',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: kSecondTextColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          color: kPrimaryColor,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                'TOTAL',
-                                style: TextStyle(
-                                  color: kSecondTextColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(
-                                '${allProducts[index].price * allProducts[index].numCup}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: kSecondTextColor,
-                                ),
-                              ),
-                            ],
-                          ),
+                          },
                         ),
                       ],
+                      secondaryActions: <Widget>[
+                        IconSlideAction(
+                          caption: 'Add again',
+                          color: Colors.blue,
+                          icon:FontAwesomeIcons.plusCircle,
+                          onTap: () {
+                            dbProvider.insertNewProduct(allProducts[index]);
+                          },
+                        ),
+                      ],
+                      child: ExpansionTile(
+                        backgroundColor: Color(0xFFF8E8D4),
+                        title: Text(
+                          allProducts[index].typeCoffee,
+                          style: TextStyle(
+                            color: kPrimaryColor,
+                            fontSize: 18,
+                          ),
+                        ),
+                        children: <Widget>[
+                          Center(
+                            child: Text(
+                              '${allProducts[index].typeCoffee}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: kSecondTextColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Hero(
+                            child: Image.asset(
+                              allProducts[index].image,
+                              height: 30,
+                            ),
+                            tag: '${allProducts[index].image}',
+                          ),
+                          Divider(
+                            color: kPrimaryColor,
+                          ),
+                          Container(
+                            //height: 100,
+                            //color: Colors.cyanAccent,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Price',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: kSecondTextColor,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      '${allProducts[index].price}\$',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Colors.brown[300],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      '${allProducts[index].numCup}',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.brown[300],
+                                      ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'Cups',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: kSecondTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: kPrimaryColor,
+                          ),
+                          Container(
+                            //color: Colors.deepOrange,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Size',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: kSecondTextColor,
+                                  ),
+                                ),
+                                Text(
+                                  allProducts[index].size == 1
+                                      ? 'Small'
+                                      : allProducts[index].size == 2
+                                          ? 'Middle '
+                                          : 'Large',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: kSecondTextColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: kPrimaryColor,
+                          ),
+                          Container(
+                            //height: 100,
+                            //color: Colors.cyanAccent,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Sugar',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: kSecondTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  allProducts[index].sugar == 1
+                                      ? 'Sugarless'
+                                      : allProducts[index].sugar == 2
+                                          ? 'Sugar cube '
+                                          : '2 Sugar cubes',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: kSecondTextColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: kPrimaryColor,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'TOTAL',
+                                  style: TextStyle(
+                                    color: kSecondTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Text(
+                                  '${allProducts[index].price * allProducts[index].numCup}\$',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: kPrimaryTextColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
@@ -248,14 +275,17 @@ class MyCard extends StatelessWidget {
                         orderProvider.allProductsMap;
                     myProvider.totalPrize(all);
                     myProvider.getTotalPriceInUi(myProvider.total);
+                    DateTime orderTime = DateTime.now();
+
                     Order order = Order(
                       drinks: all,
                       totalNumber: all.length.toString(),
                       totalPrice: myProvider.total.toString(),
-
-                      userId:userId ,
+                      date: '${orderTime.hour}:${orderTime.minute}',
+                      userId: userId,
                     );
-                    orderProvider.addNewProduct(order);
+
+                    orderProvider.addNewOrder(order);
                     myProvider.total = 0;
 
                     AwesomeDialog(
@@ -266,17 +296,15 @@ class MyCard extends StatelessWidget {
                       desc: 'total= ${myProvider.totalPriceInUi}\$',
                       btnOkOnPress: () {
                         dbProvider.deleteAllProduct();
-                      Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                     )..show();
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 60, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
                     decoration: BoxDecoration(
                       color: kPrimaryColor,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(40)),
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
                     ),
                     child: Text(
                       'Send the request',

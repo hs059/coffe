@@ -12,6 +12,22 @@ class MyProvider extends ChangeNotifier {
   int numCup = 0;
   int sugar = 0;
   int size = 0;
+  bool spinner = false ;
+  int selectExpansionTile ;
+
+  toggleSelectExpansionTile(int i ){
+    this.selectExpansionTile = i;
+    notifyListeners();
+
+  }
+
+
+  toggleSpinner(){
+    spinner = ! spinner;
+    notifyListeners();
+
+  }
+
 
 
   int total=0;
@@ -64,7 +80,7 @@ class MyProvider extends ChangeNotifier {
     if (value == null || value == '') {
       return ' this field is required ';
     } else if (!isAlphanumeric(value)) {
-      return 'invalid Name ';
+      return 'invalid Password ';
     }
   }
 
@@ -109,4 +125,5 @@ class MyProvider extends ChangeNotifier {
     iconData = toggleEye ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye;
     notifyListeners();
   }
+
 }

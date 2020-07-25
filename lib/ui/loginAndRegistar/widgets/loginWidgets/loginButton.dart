@@ -23,17 +23,32 @@ class LoginButton extends StatelessWidget {
       ),
       color: kPrimaryColor,
       onPressed: () async {
-        provider.submit(provider.formKeyLogin);
 
+//        Provider.of<MyProvider>(context,listen: false).toggleSpinner();
+        try{
+
+        provider.submit(provider.formKeyLogin);
         final result = await Auth.auth.loginUsingEmailAndPassword(
             email: provider.email, password: provider.password);
-
-        result.isEmpty?
+        result.isNotEmpty?
         Navigator.push(context, MaterialPageRoute(
           builder: (context) => SelectDrinkScreen(),
         ),
         ):print('snackBar');
 
+      }catch(e){
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Color(0xFFF0F0EC),
+            content: Text(
+              'This username is not already used.\nTry another username',
+              style: TextStyle(color: Color(0xFF111328), fontSize: 18),
+            ),
+          ),
+        ) ;
+//        Provider.of<MyProvider>(context,listen: false).toggleSpinner();
+
+        }
 
       },
       child: Container(

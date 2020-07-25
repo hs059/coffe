@@ -15,26 +15,32 @@ class RegisterButton extends StatelessWidget {
       ),
       color: kPrimaryColor,
       onPressed: () async {
-        provider.submit(provider.formKeyRegister);
-        final result = await Auth.auth.registerUsingEmailAndPassword(
-            email: provider.email, password: provider.password);
-        print(result == null ? 'invaled' : result);
-        result == null
-            ? Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Color(0xFFF0F0EC),
-                  content: Text(
-                    'This username is already used.\nTry another username',
-                    style: TextStyle(color: Color(0xFF111328), fontSize: 18),
-                  ),
-                ),
-              )
-            : Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SelectDrinkScreen(),
-                ),
-              );
+        try{
+//          Provider.of<MyProvider>(context,listen: false).toggleSpinner();
+          provider.submit(provider.formKeyRegister);
+          final result = await Auth.auth.registerUsingEmailAndPassword(
+              email: provider.email, password: provider.password);
+          print(result == null ? 'invaled' : result);
+          result == null
+              ? Scaffold.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Color(0xFFF0F0EC),
+              content: Text(
+                'This username is already used.\nTry another username',
+                style: TextStyle(color: Color(0xFF111328), fontSize: 18),
+              ),
+            ),
+          )
+              : Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SelectDrinkScreen(),
+            ),
+          );
+//          Provider.of<MyProvider>(context,listen: false).toggleSpinner();
+
+        }catch(e){print(e);}
+
       },
       child: Container(
         width: double.infinity,

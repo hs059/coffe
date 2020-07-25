@@ -16,6 +16,7 @@ class LoginAndRegister extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),
               onPressed: () {
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(

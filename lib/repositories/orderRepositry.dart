@@ -11,11 +11,24 @@ class OrderRepository {
   static final OrderRepository orderRepository = OrderRepository._();
   Firestore firestore = Firestore.instance;
 
-  addNewProduct(Order order) async {
+  addNewOrder(Order order) async {
     try {
-     await OrderClient.orderClient.addNewProduct(order.toJson());
+     await OrderClient.orderClient.addNewOrder(order.toJson());
     } catch (e) {
       print(e);
     }
+  }
+//  deleteProduct(Order order) async {
+//    try {
+//     await OrderClient.orderClient.addNewProduct(order.toJson());
+//    } catch (e) {
+//      print(e);
+//    }
+//  }
+
+  Future<List<Order>> getAllOrder()async{
+    QuerySnapshot querySnapshot = await OrderClient.orderClient.getQuerySnapshotOrder();
+    List<Order> allOrder =  querySnapshot.documents.map((e) => Order.fromJson(e)).toList();
+  return allOrder;
   }
 }

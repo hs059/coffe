@@ -4,6 +4,7 @@ import 'package:coffe/provider/db_provider.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'myCard.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -50,8 +51,9 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              Icons.credit_card,
+              FontAwesomeIcons.listAlt,
               color: kPrimaryColor,
+              size: 35,
             ),
             onPressed: () {
               Navigator.push(
@@ -71,9 +73,12 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
               image: DecorationImage(image: AssetImage('images/header.png')),
             ),
             child: Center(
-              child: Image.asset(
-                widget.productA.image,
-                height: 120,
+              child: Hero(
+                tag: '${widget.productA.image}',
+                child: Image.asset(
+                  widget.productA.image,
+                  height: 120,
+                ),
               ),
             ),
           ),
@@ -100,7 +105,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      '${widget.productA.price}',
+                      '${widget.productA.price}\$',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -362,7 +367,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                   ),
                 ),
                 Text(
-                  '${widget.productA.price * Provider.of<MyProvider>(context).numCup}',
+                  '${widget.productA.price * Provider.of<MyProvider>(context).numCup}\$',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -421,19 +426,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
           ),
         ],
       ),
-      floatingActionButton:               IconButton(
-        icon: Icon(
-          Icons.credit_card,
-          color: kPrimaryColor,
-          size: 35,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyCard()),
-          );
-        },
-      ),
+
     );
   }
 }
