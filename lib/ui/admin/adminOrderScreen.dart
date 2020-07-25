@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffe/auth.dart';
 import 'package:coffe/constant.dart';
 import 'package:coffe/models/order.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
 import 'package:coffe/repositories/orderClient.dart';
+import 'package:coffe/ui/home/homeScreen.dart';
+import 'package:coffe/ui/selectDrink/screen/myCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +18,50 @@ class AdminOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Flutter coffee',
+          style: GoogleFonts.pacifico(
+            color: kPrimaryColor,
+            fontSize: 25,
+            fontWeight: FontWeight.w200,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(
+            FontAwesomeIcons.signOutAlt,
+          ),
+          color: kPrimaryTextColor,
+          onPressed: ()async {
+//              await Provider.of<OrderProvider>(context,listen: false).deleteAllOrder() ;
+            Auth.auth.signOut();
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ));
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.listAlt,
+              color: Color(0xFFC28E79),
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyCard()),
+              );
+            },
+          ),
+        ],
+      ),
+
       body:FutureBuilder<List<Order>>(
         future: Provider.of<OrderProvider>(context).getAllOrderAdmin(),
         builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
