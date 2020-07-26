@@ -14,11 +14,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool check = await Auth.auth.getIsLogin();
  String userId = await Auth.auth.getUserId() ;
+  print('userId = $userId' );
   Widget screen ;
 
 
   if(userId=='tHGHQx5g9QVBtgWlcR51Lc3aAYw1'){
    screen = AdminOrderScreen();
+   print('Admin');
  }else{
     if (check == null || check == false) {
       screen = HomeScreen();

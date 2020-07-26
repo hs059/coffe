@@ -1,5 +1,6 @@
 import 'package:coffe/auth.dart';
 import 'package:coffe/provider/myProvider.dart';
+import 'package:coffe/ui/admin/adminOrderScreen.dart';
 import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 
 
@@ -30,11 +31,23 @@ class LoginButton extends StatelessWidget {
         provider.submit(provider.formKeyLogin);
         final result = await Auth.auth.loginUsingEmailAndPassword(
             email: provider.email, password: provider.password);
-        result.isNotEmpty?
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) => SelectDrinkScreen(),
-        ),
-        ):print('snackBar');
+          String userId = await Auth.auth.getUserId() ;
+        if(result.isNotEmpty){
+          if(userId=='tHGHQx5g9QVBtgWlcR51Lc3aAYw1'){
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => AdminOrderScreen(),
+            ),
+            );
+            print('Admin 8888');
+          } else{
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => SelectDrinkScreen(),
+            ),
+            ) ;
+            print('zazazazazazaz za');
+
+          }
+        }else{print('snackBar');}
 
       }catch(e){
         Scaffold.of(context).showSnackBar(
