@@ -36,7 +36,11 @@ class OrderProvider extends ChangeNotifier {
   deleteOrder(String iD) async {
     await OrderClient.orderClient.deleteOrder(iD);
     getAllOrder();
-//    notifyListeners();
+  }
+
+  updateField(Order order,String iD) async {
+    await OrderRepository.orderRepository.updateFieldOrder(order,iD);
+notifyListeners();
   }
 
   deleteAllOrder() async {

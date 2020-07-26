@@ -1,11 +1,9 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffe/models/products.dart';
 
 class Order {
   List<Map<String, dynamic>> drinks;
-
+  String docId;
   String userId;
   String totalPrice;
   String status;
@@ -13,9 +11,16 @@ class Order {
   String totalNumber;
   String date;
 
-  Order({this.drinks, this.userId, this.totalPrice, this.totalNumber,this.status='processing',this.date});
+  Order(
+      {this.drinks,
+      this.userId,
+      this.totalPrice,
+      this.totalNumber,
+      this.status = 'processing',
+      this.date});
 
   Order.fromJson(DocumentSnapshot documentSnapshot) {
+    this.docId = documentSnapshot.documentID;
     this.userId = documentSnapshot.data['userId'];
     this.totalPrice = documentSnapshot.data['totalPrice'];
     this.totalNumber = documentSnapshot.data['totalNumber'];
@@ -23,12 +28,11 @@ class Order {
     this.status = documentSnapshot.data['status'];
 //    this.drinks = documentSnapshot.data['drinks'];
     if (documentSnapshot.data['drinks'] != null) {
-      drinks =  List<Map<String, dynamic>>();
+      drinks = List<Map<String, dynamic>>();
       documentSnapshot.data['drinks'].forEach((v) {
         drinks.add(Product.fromJson(v).toJson());
       });
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -37,8 +41,8 @@ class Order {
       'userId': this.userId,
       'totalPrice': this.totalPrice,
       'totalNumber': this.totalNumber,
-      'date':this.date,
-      'status':this.status,
+      'date': this.date,
+      'status': this.status,
     };
   }
 }

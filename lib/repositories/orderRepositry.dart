@@ -19,6 +19,15 @@ class OrderRepository {
   }
 
 
+  updateFieldOrder(Order order,String iD) async {
+    try {
+      await firestore.collection('orders').document(iD).updateData(order.toJson());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
   Future<List<Order>> getAllOrder()async{
     QuerySnapshot querySnapshot = await OrderClient.orderClient.getQuerySnapshotOrder();
     List<Order> allOrder =  querySnapshot.documents.map((e) => Order.fromJson(e)).toList();

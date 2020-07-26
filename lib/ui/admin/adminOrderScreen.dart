@@ -5,6 +5,7 @@ import 'package:coffe/models/order.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
 import 'package:coffe/repositories/orderClient.dart';
+import 'package:coffe/ui/admin/drinks.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
 import 'package:coffe/ui/selectDrink/screen/myCard.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class AdminOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -35,7 +37,7 @@ class AdminOrderScreen extends StatelessWidget {
             FontAwesomeIcons.signOutAlt,
           ),
           color: kPrimaryTextColor,
-          onPressed: ()async {
+          onPressed: () async {
 //              await Provider.of<OrderProvider>(context,listen: false).deleteAllOrder() ;
             Auth.auth.signOut();
             Navigator.pushReplacement(
@@ -45,29 +47,13 @@ class AdminOrderScreen extends StatelessWidget {
                 ));
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              FontAwesomeIcons.listAlt,
-              color: Color(0xFFC28E79),
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyCard()),
-              );
-            },
-          ),
-        ],
       ),
-
-      body:FutureBuilder<List<Order>>(
+      body: FutureBuilder<List<Order>>(
         future: Provider.of<OrderProvider>(context).getAllOrderAdmin(),
         builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
           if (snapshot.hasData) {
-            List<Order> order = snapshot.data;
-            if (order.length > 0) {
+            List<Order> orders = snapshot.data;
+            if (orders.length > 0) {
               return Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -84,48 +70,39 @@ class AdminOrderScreen extends StatelessWidget {
                     Expanded(
                       flex: 8,
                       child: ListView.builder(
-                        itemCount: order.length,
+                        itemCount: orders.length,
                         itemBuilder: (context, index) {
                           return Slidable(
                             actionPane: SlidableDrawerActionPane(),
                             actionExtentRatio: 0.25,
                             actions: <Widget>[
-                              IconSlideAction(
-                                caption: 'Delete',
-                                color: Colors.red,
-                                icon: Icons.delete,
-                                onTap: () async {
-                                  QuerySnapshot querySnapshot = await OrderClient
-                                      .orderClient
-                                      .getQuerySnapshotOrder();
-                                  await orderProvider.deleteOrder(
-                                      querySnapshot.documents[index].documentID);
-                                },
-                              ),
-                            ],
-                            secondaryActions: <Widget>[
-                              IconSlideAction(
-                                caption: 'Add again',
-                                color: Colors.blue,
-                                icon: FontAwesomeIcons.plusCircle,
-                                onTap: () async {
-                                  await orderProvider
-                                      .addNewOrder(order[index]);
-                                  await orderProvider.getAllOrder();
-                                },
+                              Visibility(
+                          visible: Provider.of<MyProvider>(context)
+                              .selected =='Done',
+                                child: IconSlideAction(
+                                  caption: 'Delete',
+                                  color: Colors.red,
+                                  icon: Icons.delete,
+                                  onTap: () async {
+                                    await orderProvider.deleteOrder(orders[index].docId);
+                                  },
+                                ),
                               ),
                             ],
                             child: ExpansionTile(
-                              initiallyExpanded: Provider.of<MyProvider>(context)
-                                  .selectExpansionTile ==
-                                  index,
+                              initiallyExpanded:
+                                  Provider.of<MyProvider>(context)
+                                          .selectExpansionTile ==
+                                      index,
                               backgroundColor: Color(0xFFF8E8D4),
                               onExpansionChanged: (value) {
                                 if (value) {
-                                  Provider.of<MyProvider>(context, listen: false)
+                                  Provider.of<MyProvider>(context,
+                                          listen: false)
                                       .toggleSelectExpansionTile(index);
                                 } else {
-                                  Provider.of<MyProvider>(context, listen: false)
+                                  Provider.of<MyProvider>(context,
+                                          listen: false)
                                       .toggleSelectExpansionTile(-2);
                                 }
                               },
@@ -170,67 +147,10 @@ class AdminOrderScreen extends StatelessWidget {
                                         color: kPrimaryColor,
                                       ),
                                       onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              backgroundColor: Color(0xFFF0F0EC),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(10.0))),
-                                              title: Text(
-                                                'Drinks',
-                                                style: GoogleFonts.sourceSansPro(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 25,
-                                                  color: kSecondTextColor,
-                                                ),
-                                              ),
-                                              content: Container(
-                                                height: 100,
-                                                child: ListView.builder(
-                                                  itemCount: order[index]
-                                                      .drinks
-                                                      .length,
-                                                  itemBuilder: (context, index2) {
-                                                    return Container(
-                                                      padding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 5),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            '${order[index].drinks[index2]['typeCoffee']}',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                              FontWeight.bold,
-                                                              fontSize: 20,
-                                                              color:
-                                                              kSecondTextColor,
-                                                            ),
-                                                          ),
-//                                              SizedBox(width: 5),
-                                                          Text(
-                                                            '${order[index].drinks[index2]['numCupColumn']} Cups',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                              FontWeight.bold,
-                                                              fontSize: 18,
-                                                              color:
-                                                              kSecondTextColor,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            );
-                                          },
+                                        Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return Drinks(order: orders[index],);
+                                        },)
                                         );
                                       },
                                     ),
@@ -250,7 +170,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       vertical: 5, horizontal: 20),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         'Number of Drinks',
@@ -262,7 +182,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       ),
                                       SizedBox(width: 5),
                                       Text(
-                                        '${order[index].totalNumber} Cups',
+                                        '${orders[index].totalNumber} Cups',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -284,7 +204,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       vertical: 5, horizontal: 20),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         'Status',
@@ -294,14 +214,55 @@ class AdminOrderScreen extends StatelessWidget {
                                           color: kSecondTextColor,
                                         ),
                                       ),
-                                      Text(
-                                        order[index].status,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          color: kPrimaryTextColor,
-                                        ),
+                                      DropdownButton(
+                                        value: Provider.of<MyProvider>(context)
+                                            .selected,
+                                        items: <DropdownMenuItem<String>>[
+                                          DropdownMenuItem(
+                                            child: Text('Done'),
+                                            value: 'Done',
+                                          ),
+                                          DropdownMenuItem(
+                                            child: Text('Procissing'),
+                                            value: 'Procissing',
+                                          ),
+                                          DropdownMenuItem(
+                                            child: Text('reject'),
+                                            value: 'reject',
+                                          ),
+                                        ],
+                                        onChanged: (value) async {
+//
+                                          Provider.of<MyProvider>(context,
+                                                  listen: false)
+                                              .changeSelcted(value);
+                                          orders[index].status = Provider.of<MyProvider>(
+                                              context,
+                                              listen: false)
+                                              .selected;
+                                          Order order = Order(
+                                              totalPrice:
+                                                  orders[index].totalPrice,
+                                              totalNumber:
+                                                  orders[index].totalNumber,
+                                              date: orders[index].date,
+                                              status: orders[index].status,
+                                              drinks: orders[index].drinks,
+                                              userId: orders[index].userId);
+
+                                          Provider.of<OrderProvider>(context,listen: false)
+                                              .updateField(
+                                                  order, orders[index].docId);
+                                        },
                                       ),
+//                                      Text(
+//                                        order[index].status,
+//                                        style: TextStyle(
+//                                          fontWeight: FontWeight.bold,
+//                                          fontSize: 18,
+//                                          color: kPrimaryTextColor,
+//                                        ),
+//                                      ),
                                     ],
                                   ),
                                 ),
@@ -318,7 +279,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       vertical: 5, horizontal: 20),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         'Request time',
@@ -329,7 +290,7 @@ class AdminOrderScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '${order[index].date}',
+                                        '${orders[index].date}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
@@ -350,7 +311,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       vertical: 20, horizontal: 20),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         'TOTAL',
@@ -361,7 +322,7 @@ class AdminOrderScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '${order[index].totalPrice}\$',
+                                        '${orders[index].totalPrice}\$',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
@@ -382,11 +343,13 @@ class AdminOrderScreen extends StatelessWidget {
               );
             } else {
               return Center(
-                child: Text('No Order',
+                child: Text(
+                  'No Order',
                   style: GoogleFonts.sourceSansPro(
                     color: kPrimaryColor,
                     fontSize: 20,
-                  ),),
+                  ),
+                ),
               );
             }
           } else {
@@ -395,7 +358,7 @@ class AdminOrderScreen extends StatelessWidget {
             );
           }
         },
-      ) ,
+      ),
     );
   }
 }

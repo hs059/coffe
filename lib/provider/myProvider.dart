@@ -12,44 +12,49 @@ class MyProvider extends ChangeNotifier {
   int numCup = 0;
   int sugar = 0;
   int size = 0;
-  bool spinner = false ;
-  int selectExpansionTile ;
+  bool spinner = false;
 
-  toggleSelectExpansionTile(int i ){
+  int selectExpansionTile;
+
+  String selected = 'Procissing';
+
+  changeSelcted( String value) {
+    this.selected = value;
+    print(selected);
+    notifyListeners();
+  }
+
+  updateOrder() {}
+
+  toggleSelectExpansionTile(int i) {
     this.selectExpansionTile = i;
     notifyListeners();
-
   }
 
-
-  toggleSpinner(){
-    spinner = ! spinner;
+  changeValue(String value1, String value2) {
+    value1 = value2;
     notifyListeners();
-
   }
 
+  toggleSpinner() {
+    spinner = !spinner;
+    notifyListeners();
+  }
 
-
-  int total=0;
-  int totalPriceInUi=0;
+  int total = 0;
+  int totalPriceInUi = 0;
 
   totalPrize(List<Map> value) {
-    for(Map map in value){
-      this.total +=( map['priceColumn']*map['numCupColumn']);
+    for (Map map in value) {
+      this.total += (map['priceColumn'] * map['numCupColumn']);
       notifyListeners();
     }
-
   }
+
   getTotalPriceInUi(int value) {
     this.totalPriceInUi = value;
     notifyListeners();
   }
-
-
-
-
-
-
 
   IconData iconData = FontAwesomeIcons.eyeSlash;
   bool toggleEye = true;
@@ -100,7 +105,6 @@ class MyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   addNum() {
     numCup++;
     notifyListeners();
@@ -115,6 +119,7 @@ class MyProvider extends ChangeNotifier {
     size = num;
     notifyListeners();
   }
+
   selectNumSugar({int num}) {
     sugar = num;
     notifyListeners();
@@ -125,5 +130,4 @@ class MyProvider extends ChangeNotifier {
     iconData = toggleEye ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye;
     notifyListeners();
   }
-
 }

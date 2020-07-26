@@ -24,10 +24,8 @@ class LoginButton extends StatelessWidget {
       ),
       color: kPrimaryColor,
       onPressed: () async {
-
 //        Provider.of<MyProvider>(context,listen: false).toggleSpinner();
         try{
-
         provider.submit(provider.formKeyLogin);
         final result = await Auth.auth.loginUsingEmailAndPassword(
             email: provider.email, password: provider.password);
@@ -38,14 +36,11 @@ class LoginButton extends StatelessWidget {
               builder: (context) => AdminOrderScreen(),
             ),
             );
-            print('Admin 8888');
           } else{
             Navigator.push(context, MaterialPageRoute(
               builder: (context) => SelectDrinkScreen(),
             ),
             ) ;
-            print('zazazazazazaz za');
-
           }
         }else{print('snackBar');}
 
@@ -60,9 +55,7 @@ class LoginButton extends StatelessWidget {
           ),
         ) ;
 //        Provider.of<MyProvider>(context,listen: false).toggleSpinner();
-
         }
-
       },
       child: Container(
         width: double.infinity,

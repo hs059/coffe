@@ -9,7 +9,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MyProvider provider = Provider.of<MyProvider>(context, listen: false) ;
+    MyProvider provider = Provider.of<MyProvider>(context) ;
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 20,
@@ -28,11 +28,11 @@ class LoginForm extends StatelessWidget {
               height: 16,
             ),
             InputTextFormField(
-              iconData: Provider.of<MyProvider>(context).iconData,
+              iconData: provider.iconData,
               label: 'Password',
-              password: Provider.of<MyProvider>(context).toggleEye,
-              validator:Provider.of<MyProvider>(context).validatePassword ,
-              onSaved: Provider.of<MyProvider>(context).savePassword,
+              password: provider.toggleEye,
+              validator:provider.validatePassword ,
+              onSaved: provider.savePassword,
             ),
           ],
         ),

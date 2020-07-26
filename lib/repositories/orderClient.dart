@@ -16,6 +16,7 @@ class OrderClient {
     }
   }
 
+  
   Future<QuerySnapshot> getQuerySnapshotOrder() async {
     QuerySnapshot querySnapshot = await Firestore.instance
         .collection('orders')
@@ -23,6 +24,7 @@ class OrderClient {
         .getDocuments();
     return querySnapshot;
   }
+
   Future<QuerySnapshot> getQuerySnapshotOrderAdmin() async {
     QuerySnapshot querySnapshot = await Firestore.instance
         .collection('orders')
@@ -36,6 +38,13 @@ class OrderClient {
   deleteOrder(String iD) async {
     try {
       await firestore.collection('orders').document(iD).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
+  updateField(String iD,Map map) async {
+    try {
+      await firestore.collection('orders').document(iD).updateData(map);
     } catch (e) {
       print(e);
     }
