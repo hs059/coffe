@@ -100,7 +100,7 @@ class MyCard extends StatelessWidget {
                           Hero(
                             child: Image.asset(
                               allProducts[index].image,
-                              height: 30,
+                              height: 40,
                             ),
                             tag: '${allProducts[index].image}',
                           ),

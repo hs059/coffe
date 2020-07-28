@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffe/auth.dart';
 import 'package:coffe/constant.dart';
 import 'package:coffe/models/order.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
-import 'package:coffe/repositories/orderClient.dart';
 import 'package:coffe/ui/admin/drinks.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
-import 'package:coffe/ui/selectDrink/screen/myCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,8 +74,7 @@ class AdminOrderScreen extends StatelessWidget {
                             actionExtentRatio: 0.25,
                             actions: <Widget>[
                               Visibility(
-                          visible: Provider.of<MyProvider>(context)
-                              .selected =='Done',
+                                visible:orders[index].status=='Done',
                                 child: IconSlideAction(
                                   caption: 'Delete',
                                   color: Colors.red,
@@ -215,16 +211,16 @@ class AdminOrderScreen extends StatelessWidget {
                                         ),
                                       ),
                                       DropdownButton(
-                                        value: Provider.of<MyProvider>(context)
-                                            .selected,
-                                        items: <DropdownMenuItem<String>>[
+                                        value: orders[index].status,
+//                                        value: 'processing',
+                                        items: <DropdownMenuItem>[
                                           DropdownMenuItem(
                                             child: Text('Done'),
                                             value: 'Done',
                                           ),
                                           DropdownMenuItem(
-                                            child: Text('Procissing'),
-                                            value: 'Procissing',
+                                            child: Text('processing'),
+                                            value: 'processing',
                                           ),
                                           DropdownMenuItem(
                                             child: Text('reject'),
@@ -255,14 +251,7 @@ class AdminOrderScreen extends StatelessWidget {
                                                   order, orders[index].docId);
                                         },
                                       ),
-//                                      Text(
-//                                        order[index].status,
-//                                        style: TextStyle(
-//                                          fontWeight: FontWeight.bold,
-//                                          fontSize: 18,
-//                                          color: kPrimaryTextColor,
-//                                        ),
-//                                      ),
+
                                     ],
                                   ),
                                 ),

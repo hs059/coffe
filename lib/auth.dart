@@ -78,21 +78,22 @@ class Auth {
           await googleSignInAccount.authentication;
       String accessToken = googleSignInAuthentication.accessToken;
       String idToken = googleSignInAuthentication.idToken;
-      AuthCredential authCredential = GoogleAuthProvider.getCredential(
+      AuthCredential authCredential =  GoogleAuthProvider.getCredential(
           idToken: idToken, accessToken: accessToken);
       AuthResult authResult =
           await firebaseAuth.signInWithCredential(authCredential);
+      print('aaaaaaaaaa');
 
-      String userId = authResult.user.uid;
-      print(userId);
+      String userId =  authResult.user.uid;
+      print('userId = $userId');
       sharedPreferences.setString('userId', userId);
       sharedPreferences.setBool('isLogin', true);
-
       if (authResult.user == null) {
         return false;
       } else {
         return true;
       }
+
     } catch (e) {
       print(e);
     }

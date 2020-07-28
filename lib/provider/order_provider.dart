@@ -40,6 +40,7 @@ class OrderProvider extends ChangeNotifier {
 
   updateField(Order order,String iD) async {
     await OrderRepository.orderRepository.updateFieldOrder(order,iD);
+    getAllOrderAdmin();
 notifyListeners();
   }
 

@@ -36,7 +36,7 @@ class SelectDrinkScreen extends StatelessWidget {
             color: kPrimaryTextColor,
             onPressed: ()async {
 //              await Provider.of<OrderProvider>(context,listen: false).deleteAllOrder() ;
-              Auth.auth.signOut();
+             await Auth.auth.signOut();
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

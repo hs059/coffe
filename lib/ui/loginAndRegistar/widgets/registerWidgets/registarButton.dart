@@ -1,6 +1,7 @@
 import 'package:coffe/auth.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 import 'package:coffe/constant.dart';
@@ -16,7 +17,7 @@ class RegisterButton extends StatelessWidget {
       color: kPrimaryColor,
       onPressed: () async {
         try{
-//          Provider.of<MyProvider>(context,listen: false).toggleSpinner();
+          Provider.of<MyProvider>(context,listen: false).toggleSpinner();
           provider.submit(provider.formKeyRegister);
           final result = await Auth.auth.registerUsingEmailAndPassword(
               email: provider.email, password: provider.password);
@@ -26,8 +27,10 @@ class RegisterButton extends StatelessWidget {
             SnackBar(
               backgroundColor: Color(0xFFF0F0EC),
               content: Text(
-                'This username is already used.\nTry another username',
-                style: TextStyle(color: Color(0xFF111328), fontSize: 18),
+                'That username is taken.\nOr not connected to the network',
+                style: GoogleFonts.sourceSansPro(
+                    color: Color(0xFFFF0800), fontSize: 18
+                ),
               ),
             ),
           )
@@ -37,7 +40,7 @@ class RegisterButton extends StatelessWidget {
               builder: (context) => SelectDrinkScreen(),
             ),
           );
-//          Provider.of<MyProvider>(context,listen: false).toggleSpinner();
+          Provider.of<MyProvider>(context,listen: false).toggleSpinner();
 
         }catch(e){print(e);}
 

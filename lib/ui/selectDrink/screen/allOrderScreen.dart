@@ -18,8 +18,8 @@ class AllOrderScreen extends StatelessWidget {
       future: Provider.of<OrderProvider>(context).getAllOrder(),
       builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
         if (snapshot.hasData) {
-          List<Order> order = snapshot.data;
-          if (order.length > 0) {
+          List<Order> orders = snapshot.data;
+          if (orders.length > 0) {
             return Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -36,23 +36,26 @@ class AllOrderScreen extends StatelessWidget {
                   Expanded(
                     flex: 8,
                     child: ListView.builder(
-                      itemCount: order.length,
+                      itemCount: orders.length,
                       itemBuilder: (context, index) {
                         return Slidable(
                           actionPane: SlidableDrawerActionPane(),
                           actionExtentRatio: 0.25,
                           actions: <Widget>[
-                            IconSlideAction(
-                              caption: 'Delete',
-                              color: Colors.red,
-                              icon: Icons.delete,
-                              onTap: () async {
-                                QuerySnapshot querySnapshot = await OrderClient
-                                    .orderClient
-                                    .getQuerySnapshotOrder();
-                                await orderProvider.deleteOrder(
-                                    querySnapshot.documents[index].documentID);
-                              },
+                            Visibility(
+                              visible:orders[index].status=='Done',
+                              child: IconSlideAction(
+                                caption: 'Delete',
+                                color: Colors.red,
+                                icon: Icons.delete,
+                                onTap: () async {
+                                  QuerySnapshot querySnapshot = await OrderClient
+                                      .orderClient
+                                      .getQuerySnapshotOrder();
+                                  await orderProvider.deleteOrder(
+                                      querySnapshot.documents[index].documentID);
+                                },
+                              ),
                             ),
                           ],
                           secondaryActions: <Widget>[
@@ -62,7 +65,7 @@ class AllOrderScreen extends StatelessWidget {
                               icon: FontAwesomeIcons.plusCircle,
                               onTap: () async {
                                 await orderProvider
-                                    .addNewOrder(order[index]);
+                                    .addNewOrder(orders[index]);
                                 await orderProvider.getAllOrder();
                               },
                             ),
@@ -141,7 +144,7 @@ class AllOrderScreen extends StatelessWidget {
                                             content: Container(
                                               height: 100,
                                               child: ListView.builder(
-                                                itemCount: order[index]
+                                                itemCount: orders[index]
                                                     .drinks
                                                     .length,
                                                 itemBuilder: (context, index2) {
@@ -155,7 +158,7 @@ class AllOrderScreen extends StatelessWidget {
                                                               .spaceBetween,
                                                       children: <Widget>[
                                                         Text(
-                                                          '${order[index].drinks[index2]['typeCoffee']}',
+                                                          '${orders[index].drinks[index2]['typeCoffee']}',
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -166,7 +169,7 @@ class AllOrderScreen extends StatelessWidget {
                                                         ),
 //                                              SizedBox(width: 5),
                                                         Text(
-                                                          '${order[index].drinks[index2]['numCupColumn']} Cups',
+                                                          '${orders[index].drinks[index2]['numCupColumn']} Cups',
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -214,7 +217,7 @@ class AllOrderScreen extends StatelessWidget {
                                     ),
                                     SizedBox(width: 5),
                                     Text(
-                                      '${order[index].totalNumber} Cups',
+                                      '${orders[index].totalNumber} Cups',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
@@ -247,7 +250,7 @@ class AllOrderScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      order[index].status,
+                                      orders[index].status,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
@@ -281,7 +284,7 @@ class AllOrderScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      '${order[index].date}',
+                                      '${orders[index].date}',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
@@ -313,7 +316,7 @@ class AllOrderScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      '${order[index].totalPrice}\$',
+                                      '${orders[index].totalPrice}\$',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
@@ -342,8 +345,20 @@ class AllOrderScreen extends StatelessWidget {
             );
           }
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color(0xFFF0F0EC),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  'images/bg.png',
+                ),
+              ),
+            ),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },

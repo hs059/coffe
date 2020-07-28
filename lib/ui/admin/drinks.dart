@@ -55,6 +55,10 @@ Drinks({ this.order});
                     SizedBox(
                       height: 5,
                     ),
+                    Image.asset(
+                      order.drinks[index2]['imageColumn'],
+                      height: 30,
+                    ),
                     Divider(
                       color: kPrimaryColor,
                     ),

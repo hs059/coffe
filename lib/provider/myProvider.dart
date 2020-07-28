@@ -13,10 +13,15 @@ class MyProvider extends ChangeNotifier {
   int sugar = 0;
   int size = 0;
   bool spinner = false;
+  String initialValue= 'processing';
+  initialValueDrop(String stutes){
+    this.initialValue = stutes ;
+    notifyListeners();
+  }
 
   int selectExpansionTile;
 
-  String selected = 'Procissing';
+  String selected = 'processing';
 
   changeSelcted( String value) {
     this.selected = value;
