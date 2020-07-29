@@ -14,6 +14,7 @@ class _MyMapState extends State<MyMap> {
   static LatLng flutterCoffee = LatLng(31.509557, 34.421466);
   Set<Marker> myMarkers = {
     Marker(
+      infoWindow: InfoWindow(title: 'flutterCoffee'),
       markerId: MarkerId('flutterCoffee'),
       position: flutterCoffee,
     ),
@@ -102,6 +103,8 @@ class _MyMapState extends State<MyMap> {
               AnimateCamera(myLocation);
               myMarkers.add(
                 Marker(
+                  infoWindow: InfoWindow(title: 'myLocation'),
+
                   markerId: MarkerId('myLocation'),
                   position: LatLng(myLocation.latitude, myLocation.longitude),
                   icon: BitmapDescriptor.defaultMarkerWithHue(
