@@ -26,7 +26,6 @@ class Order {
     this.totalNumber = documentSnapshot.data['totalNumber'];
     this.date = documentSnapshot.data['date'];
     this.status = documentSnapshot.data['status'];
-//    this.drinks = documentSnapshot.data['drinks'];
     if (documentSnapshot.data['drinks'] != null) {
       drinks = List<Map<String, dynamic>>();
       documentSnapshot.data['drinks'].forEach((v) {

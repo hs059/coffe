@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     var delay = Duration(seconds: 3);
     Future.delayed(delay, () {
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context) {
           return widget.screen;
         },

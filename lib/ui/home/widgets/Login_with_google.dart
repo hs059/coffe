@@ -26,7 +26,7 @@ class LoginGoogle extends StatelessWidget {
             final result =  await Auth.auth.loginUsingGoogle() ;
             print('$result 2222');
             result?
-            Navigator.push(context, MaterialPageRoute(
+            Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => SelectDrinkScreen(),
             ),
             ):print('snackBar');

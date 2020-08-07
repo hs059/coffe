@@ -40,7 +40,7 @@ class LoginButton extends StatelessWidget {
               );
             } else {
               //users
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SelectDrinkScreen(),

@@ -135,4 +135,6 @@ class MyProvider extends ChangeNotifier {
     iconData = toggleEye ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye;
     notifyListeners();
   }
+
+
 }
