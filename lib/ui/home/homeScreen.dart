@@ -33,6 +33,7 @@ class HomeScreen extends StatelessWidget {
           height: size.height,
           child: Column(
             children: <Widget>[
+              //TODO:edit image sizes
               Image.asset('images/artwork.png',height: ScreenUtil().setHeight(350),width: ScreenUtil().setWidth(360),
               ),
               SizedBox(
