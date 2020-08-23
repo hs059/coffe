@@ -5,6 +5,7 @@ import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
 import 'package:coffe/repositories/orderClient.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,7 @@ class AllOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
     return FutureBuilder<List<Order>>(
       future: Provider.of<OrderProvider>(context).getAllOrder(),
       builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot) {
@@ -88,7 +90,7 @@ class AllOrderScreen extends StatelessWidget {
                               'Order ${index + 1}',
                               style: GoogleFonts.roboto(
                                 color: kPrimaryColor,
-                                fontSize: 20,
+                                fontSize: ScreenUtil().setSp(20),
                               ),
                             ),
                             children: <Widget>[
@@ -97,7 +99,7 @@ class AllOrderScreen extends StatelessWidget {
                                   'Order${index + 1}',
                                   style: GoogleFonts.sourceSansPro(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25,
+                                    fontSize: ScreenUtil().setSp(25),
                                     color: kSecondTextColor,
                                   ),
                                 ),
@@ -106,7 +108,7 @@ class AllOrderScreen extends StatelessWidget {
                                 child: Divider(
                                   color: kPrimaryColor,
                                 ),
-                                width: 100,
+                                width: ScreenUtil().setWidth(100),
                               ),
                               Container(
                                 child: ListTile(
@@ -114,7 +116,7 @@ class AllOrderScreen extends StatelessWidget {
                                     'Drinks',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: ScreenUtil().setSp(20),
                                       color: kSecondTextColor,
                                     ),
                                   ),
@@ -137,12 +139,12 @@ class AllOrderScreen extends StatelessWidget {
                                               'Drinks',
                                               style: GoogleFonts.sourceSansPro(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 25,
+                                                fontSize: ScreenUtil().setSp(20),
                                                 color: kSecondTextColor,
                                               ),
                                             ),
                                             content: Container(
-                                              height: 100,
+                                              height: ScreenUtil().setHeight(100),
                                               child: ListView.builder(
                                                 itemCount: orders[index]
                                                     .drinks
@@ -162,18 +164,17 @@ class AllOrderScreen extends StatelessWidget {
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 20,
+                                                            fontSize: ScreenUtil().setSp(20),
                                                             color:
                                                                 kSecondTextColor,
                                                           ),
                                                         ),
-//                                              SizedBox(width: 5),
                                                         Text(
                                                           '${orders[index].drinks[index2]['numCupColumn']} Cups',
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 18,
+                                                            fontSize: ScreenUtil().setSp(18),
                                                             color:
                                                                 kSecondTextColor,
                                                           ),
@@ -192,13 +193,13 @@ class AllOrderScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 5,
+                                height: ScreenUtil().setHeight(5),
                               ),
                               SizedBox(
                                 child: Divider(
                                   color: kPrimaryColor,
                                 ),
-                                width: 320,
+                                width: ScreenUtil().setWidth(320),
                               ),
                               Container(
                                 padding: EdgeInsets.symmetric(
@@ -211,16 +212,16 @@ class AllOrderScreen extends StatelessWidget {
                                       'Number of Drinks',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kSecondTextColor,
                                       ),
                                     ),
-                                    SizedBox(width: 5),
+                                    SizedBox(width: ScreenUtil().setWidth(5)),
                                     Text(
                                       '${orders[index].totalNumber} Cups',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: ScreenUtil().setSp(18),
                                         color: kPrimaryTextColor,
                                       ),
                                     ),
@@ -231,7 +232,7 @@ class AllOrderScreen extends StatelessWidget {
                                 child: Divider(
                                   color: kPrimaryColor,
                                 ),
-                                width: 320,
+                                width: ScreenUtil().setWidth(320),
                               ),
                               Container(
                                 //color: Colors.deepOrange,
@@ -245,7 +246,7 @@ class AllOrderScreen extends StatelessWidget {
                                       'Status',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kSecondTextColor,
                                       ),
                                     ),
@@ -253,7 +254,7 @@ class AllOrderScreen extends StatelessWidget {
                                       orders[index].status,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: ScreenUtil().setSp(18),
                                         color: kPrimaryTextColor,
                                       ),
                                     ),
@@ -264,11 +265,10 @@ class AllOrderScreen extends StatelessWidget {
                                 child: Divider(
                                   color: kPrimaryColor,
                                 ),
-                                width: 320,
+                                width: ScreenUtil().setWidth(320),
                               ),
                               Container(
-                                //height: 100,
-                                //color: Colors.cyanAccent,
+
                                 padding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 20),
                                 child: Row(
@@ -279,7 +279,7 @@ class AllOrderScreen extends StatelessWidget {
                                       'Request time',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kSecondTextColor,
                                       ),
                                     ),
@@ -287,7 +287,7 @@ class AllOrderScreen extends StatelessWidget {
                                       '${orders[index].date}',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kPrimaryTextColor,
                                       ),
                                     ),
@@ -298,7 +298,7 @@ class AllOrderScreen extends StatelessWidget {
                                 child: Divider(
                                   color: kPrimaryColor,
                                 ),
-                                width: 320,
+                                width: ScreenUtil().setWidth(320),
                               ),
                               Container(
                                 padding: EdgeInsets.symmetric(
@@ -312,14 +312,14 @@ class AllOrderScreen extends StatelessWidget {
                                       style: TextStyle(
                                         color: kSecondTextColor,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: ScreenUtil().setSp(18),
                                       ),
                                     ),
                                     Text(
                                       '${orders[index].totalPrice}\$',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kPrimaryTextColor,
                                       ),
                                     ),
@@ -340,7 +340,7 @@ class AllOrderScreen extends StatelessWidget {
               child: Text('No Order',
                 style: GoogleFonts.sourceSansPro(
                 color: kPrimaryColor,
-                fontSize: 20,
+                fontSize: ScreenUtil().setSp(20),
               ),),
             );
           }

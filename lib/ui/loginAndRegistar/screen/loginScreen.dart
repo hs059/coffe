@@ -7,6 +7,7 @@ import 'package:coffe/ui/loginAndRegistar/widgets/loginWidgets/loginForm.dart';
 import 'package:coffe/ui/loginAndRegistar/widgets/welcomeBack.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,8 @@ import 'package:provider/provider.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
@@ -24,7 +27,7 @@ class LoginScreen extends StatelessWidget {
         inAsyncCall:Provider.of<MyProvider>(context).spinner,
         child: Column(
           children: <Widget>[
-            WelcomeBackText(),
+            WelcomeBackText('Welcome back!'),
             LoginForm(),
             Container(
               padding: const EdgeInsets.symmetric(
@@ -35,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                 children: <Widget>[
                   ForgetPassword(),
                   SizedBox(
-                    height: 10,
+                    height: ScreenUtil().setHeight(10),
                   ),
                   LoginButton(),
                   Container(

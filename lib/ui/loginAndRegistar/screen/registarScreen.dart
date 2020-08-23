@@ -6,24 +6,21 @@ import 'package:coffe/ui/loginAndRegistar/widgets/registerWidgets/registarButton
 import 'package:coffe/ui/loginAndRegistar/widgets/registerWidgets/registerForm.dart';
 import 'package:coffe/ui/loginAndRegistar/widgets/welcomeBack.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-
-
-
-
 
 class RegisterScreen extends StatelessWidget {
    @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: kAppBar(context, 'Register'),
       body: ModalProgressHUD(
         inAsyncCall:Provider.of<MyProvider>(context). spinner,
         child: Column(
           children: <Widget>[
-            WelcomeBackText(),
+            WelcomeBackText('JOIN US'),
             RegisterForm(),
             Container(
               padding: const EdgeInsets.symmetric(

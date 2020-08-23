@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coffe/models/products.dart';
+import 'package:coffe/models/productsSQL.dart';
 
 class Order {
   List<Map<String, dynamic>> drinks;

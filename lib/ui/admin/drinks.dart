@@ -7,9 +7,10 @@ import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:coffe/provider/db_provider.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:coffe/models/products.dart';
+import 'package:coffe/models/productsSQL.dart';
 import 'package:coffe/constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -18,6 +19,7 @@ final Order order;
 Drinks({ this.order});
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
     return Scaffold(
       backgroundColor: Color(0xFFF0F0EC),
       appBar: kAppBar(
@@ -38,7 +40,7 @@ Drinks({ this.order});
                     order.drinks[index2]['typeCoffee'],
                     style: TextStyle(
                       color: kPrimaryColor,
-                      fontSize: 18,
+                      fontSize: ScreenUtil().setSp(18),
                     ),
                   ),
                   children: <Widget>[
@@ -47,24 +49,23 @@ Drinks({ this.order});
                         '${order.drinks[index2]['typeCoffee']}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: ScreenUtil().setSp(25),
                           color: kSecondTextColor,
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: ScreenUtil().setHeight(5),
                     ),
                     Image.asset(
                       order.drinks[index2]['imageColumn'],
-                      height: 30,
+                      height: ScreenUtil().setHeight(30),
                     ),
                     Divider(
                       color: kPrimaryColor,
                     ),
                     Container(
-                      //height: 100,
-                      //color: Colors.cyanAccent,
+
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,16 +77,16 @@ Drinks({ this.order});
                                 'Price',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  fontSize: ScreenUtil().setSp(18),
                                   color: kSecondTextColor,
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(height: ScreenUtil().setHeight(5)),
                               Text(
                                 '${order.drinks[index2]['priceColumn']}\$',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  fontSize: ScreenUtil().setSp(18),
                                   color: Colors.brown[300],
                                 ),
                               ),
@@ -96,7 +97,7 @@ Drinks({ this.order});
                               Text(
                                 '${order.drinks[index2]['numCupColumn']}',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: ScreenUtil().setSp(18),
                                   color: Colors.brown[300],
                                 ),
                               ),
@@ -105,7 +106,7 @@ Drinks({ this.order});
                                 'Cups',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  fontSize: ScreenUtil().setSp(18),
                                   color: kSecondTextColor,
                                 ),
                               ),
@@ -128,7 +129,7 @@ Drinks({ this.order});
                             'Size',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: ScreenUtil().setSp(20),
                               color: kSecondTextColor,
                             ),
                           ),
@@ -140,7 +141,7 @@ Drinks({ this.order});
                                     : 'Large',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: ScreenUtil().setSp(18),
                               color: kSecondTextColor,
                             ),
                           ),
@@ -151,8 +152,7 @@ Drinks({ this.order});
                       color: kPrimaryColor,
                     ),
                     Container(
-                      //height: 100,
-                      //color: Colors.cyanAccent,
+
                       padding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                       child: Row(
@@ -164,7 +164,7 @@ Drinks({ this.order});
                                 'Sugar',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                                  fontSize: ScreenUtil().setSp(20),
                                   color: kSecondTextColor,
                                 ),
                               ),
@@ -178,7 +178,7 @@ Drinks({ this.order});
                                     : '2 Sugar cubes',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: ScreenUtil().setSp(18),
                               color: kSecondTextColor,
                             ),
                           ),
@@ -199,14 +199,14 @@ Drinks({ this.order});
                             style: TextStyle(
                               color: kSecondTextColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                           ),
                           Text(
                             '${order.drinks[index2]['priceColumn'] * order.drinks[index2]['numCupColumn']}\$',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: ScreenUtil().setSp(20),
                               color: kPrimaryTextColor,
                             ),
                           ),
@@ -219,7 +219,7 @@ Drinks({ this.order});
             ),
           ),
           SizedBox(
-            height: 10,
+            height: ScreenUtil().setHeight(10),
           ),
         ],
       ),

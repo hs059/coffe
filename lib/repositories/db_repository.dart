@@ -2,7 +2,7 @@
 
 
 
-import 'package:coffe/models/products.dart';
+import 'package:coffe/models/productsSQL.dart';
 
 import 'db_client.dart';
 

@@ -4,6 +4,7 @@ import 'package:coffe/auth.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 class LoginGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 50.0),
       child: FlatButton(
@@ -20,11 +22,8 @@ class LoginGoogle extends StatelessWidget {
         ),
         onPressed: () async{
           Provider.of<MyProvider>(context,listen: false).toggleSpinner();
-
           try{
-
             final result =  await Auth.auth.loginUsingGoogle() ;
-            print('$result 2222');
             result?
             Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => SelectDrinkScreen(),
@@ -40,9 +39,9 @@ class LoginGoogle extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       'Not connected to the internet',
-                      style: TextStyle(color: Color(0xFFFF0800), fontSize: 18),
+                      style: TextStyle(color: Color(0xFFFF0800), fontSize: ScreenUtil().setSp(18)),
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(width: ScreenUtil().setWidth(10),),
                     Icon(Icons.signal_wifi_off,color:Color(0xFFFF0800) ,)
                   ],
                 ),
@@ -59,7 +58,7 @@ class LoginGoogle extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(FontAwesomeIcons.google,color: Colors.white,),
-              SizedBox(width: 15,),
+              SizedBox(width: ScreenUtil().setWidth(15),),
               Text(
                 'Connect with Gmail',
                 style: TextStyle(

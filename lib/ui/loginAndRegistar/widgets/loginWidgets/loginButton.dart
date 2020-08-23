@@ -6,6 +6,7 @@ import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:coffe/constant.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:provider/provider.dart';
@@ -14,6 +15,8 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MyProvider provider = Provider.of<MyProvider>(context, listen: false);
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
+
     return FlatButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(36),
@@ -54,8 +57,7 @@ class LoginButton extends StatelessWidget {
                 content: Text(
                   'This username is not already used.\nOr not connected to the network',
                   style: GoogleFonts.sourceSansPro(
-                      color: Color(0xFFFF0800), fontSize: 18),
-//              style: TextStyle(color: Color(0xFF111328), fontSize: 18),
+                      color: Color(0xFFFF0800), fontSize:ScreenUtil().setSp(18)),
                 ),
               ),
             );
@@ -67,7 +69,7 @@ class LoginButton extends StatelessWidget {
               backgroundColor: Color(0xFFF0F0EC),
               content: Text(
                 'This username is not already used.\nTry another username',
-                style: TextStyle(color: Color(0xFF111328), fontSize: 18),
+                style: TextStyle(color: Color(0xFF111328), fontSize: ScreenUtil().setSp(18)),
               ),
             ),
           );

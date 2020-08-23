@@ -6,6 +6,7 @@ import 'package:coffe/ui/admin/adminOrderScreen.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
 import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'ui/splash/splashScreen.dart';
@@ -56,7 +57,15 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: Splash(  screen ),
+          home:
+
+          Builder(
+              builder: (context) {
+
+
+                ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
+                return Splash(  screen ) ;
+              } ),
       ),
     );
   }

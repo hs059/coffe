@@ -1,10 +1,11 @@
 
 import 'package:coffe/constant.dart';
-import 'package:coffe/models/products.dart';
+import 'package:coffe/models/productsSQL.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
  import 'CustomizeDrink.dart';
+ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductSection extends StatefulWidget {
 
@@ -16,6 +17,7 @@ class ProductSection extends StatefulWidget {
 class _ProductSectionState extends State<ProductSection> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
     return  Container(
       decoration: BoxDecoration(
         color: Color(0xFFF0F0EC),
@@ -46,7 +48,7 @@ class _ProductSectionState extends State<ProductSection> {
                   tag: '${products[index].image}',
                   child: Image.asset(
                     products[index].image,
-                    width: 50,
+                    width: 50.w ,
                   ),
                 ),
                 title: Text(
@@ -54,7 +56,7 @@ class _ProductSectionState extends State<ProductSection> {
 
                   style: GoogleFonts.sourceSansPro(
                     color: kPrimaryColor,
-                    fontSize: 20,
+                    fontSize: 20.ssp,
                   ),
                 ),
                 trailing: IconButton(

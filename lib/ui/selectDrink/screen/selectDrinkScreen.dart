@@ -3,6 +3,7 @@ import 'package:coffe/constant.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
 import 'package:coffe/ui/selectDrink/screen/map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'about.dart';
@@ -13,6 +14,7 @@ import 'productSection.dart';
 class SelectDrinkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
     return DefaultTabController(
       initialIndex: 2,
       length: 4,
@@ -24,7 +26,7 @@ class SelectDrinkScreen extends StatelessWidget {
             'Flutter coffee',
             style: GoogleFonts.pacifico(
               color: kPrimaryColor,
-              fontSize: 25,
+              fontSize: ScreenUtil().setSp(25),
               fontWeight: FontWeight.w200,
             ),
           ),

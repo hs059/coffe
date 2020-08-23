@@ -132,7 +132,7 @@ class MyProvider extends ChangeNotifier {
 
   fmToggleEye() {
     toggleEye = !toggleEye;
-    iconData = toggleEye ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye;
+    iconData = toggleEye ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash;
     notifyListeners();
   }
 

@@ -16,7 +16,6 @@ class OrderClient {
     }
   }
 
-  
   Future<QuerySnapshot> getQuerySnapshotOrder() async {
     QuerySnapshot querySnapshot = await Firestore.instance
         .collection('orders')

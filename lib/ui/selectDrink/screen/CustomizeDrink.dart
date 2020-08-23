@@ -1,9 +1,10 @@
 import 'package:coffe/constant.dart';
-import 'package:coffe/models/products.dart';
+import 'package:coffe/models/productsSQL.dart';
 import 'package:coffe/provider/db_provider.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'myCard.dart';
@@ -26,6 +27,8 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
   Widget build(BuildContext context) {
     MyProvider provider = Provider.of<MyProvider>(context);
     DBProvider cardProvider = Provider.of<DBProvider>(context);
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
@@ -67,7 +70,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
       body: Column(
         children: <Widget>[
           Container(
-            height: 200,
+            height: ScreenUtil().setHeight(200),
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(image: AssetImage('images/header.png')),
@@ -77,17 +80,16 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                 tag: '${widget.productA.image}',
                 child: Image.asset(
                   widget.productA.image,
-                  height: 120,
+                  height: ScreenUtil().setHeight(120),
                 ),
               ),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: ScreenUtil().setHeight(10),
           ),
           Container(
-            //height: 100,
-            //color: Colors.cyanAccent,
+
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,16 +101,16 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                       widget.productA.typeCoffee,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: ScreenUtil().setSp(18),
                         color: kSecondTextColor,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: ScreenUtil().setHeight(10)),
                     Text(
                       '${widget.productA.price}\$',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: ScreenUtil().setSp(18),
                         color: Colors.brown[300],
                       ),
                     ),
@@ -120,11 +122,11 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                     Text(
                       '${provider.numCup < 0 ? 0 : provider.numCup}',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: ScreenUtil().setSp(20),
                         color: kSecondTextColor,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
                     GestureDetector(
                       onTap: () {
                         provider.numCup < 0
@@ -133,8 +135,8 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                                 .addNum();
                       },
                       child: Container(
-                        height: 30,
-                        width: 30,
+                        height: ScreenUtil().setHeight(30),
+                        width: ScreenUtil().setWidth(30),
                         decoration: BoxDecoration(
                           color: kSecondColor,
                           borderRadius: BorderRadius.only(
@@ -148,18 +150,16 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 5),
+                    SizedBox(width: ScreenUtil().setWidth(5)),
                     GestureDetector(
                       onTap: () {
-                        provider.numCup < 0
-                            ? provider.numCup = 0
-                            : Provider.of<MyProvider>(context, listen: false)
+                       Provider.of<MyProvider>(context, listen: false)
                                 .subNum();
-                        setState(() {});
+                        provider.numCup <= 0?provider.numCup = 0:provider.numCup;
                       },
                       child: Container(
-                        height: 30,
-                        width: 30,
+                        height: ScreenUtil().setHeight(30),
+                        width: ScreenUtil().setWidth(30),
                         decoration: BoxDecoration(
                           color: kSecondColor,
                           borderRadius: BorderRadius.only(
@@ -188,7 +188,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                   'Size',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: ScreenUtil().setSp(18),
                     color: kSecondTextColor,
                   ),
                 ),
@@ -262,8 +262,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
             ),
           ),
           Container(
-            //height: 100,
-            //color: Colors.cyanAccent,
+
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,7 +273,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                       'Sugar',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: ScreenUtil().setSp(18),
                         color: kSecondTextColor,
                       ),
                     ),
@@ -352,7 +351,6 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
             ),
           ),
           Container(
-            //height: 100,
             color: Colors.grey[300],
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Row(
@@ -363,21 +361,21 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                   style: TextStyle(
                     color: kSecondTextColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: ScreenUtil().setSp(18),
                   ),
                 ),
                 Text(
                   '${widget.productA.price * Provider.of<MyProvider>(context).numCup}\$',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: ScreenUtil().setSp(20),
                     color: kSecondTextColor,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: ScreenUtil().setHeight(20)),
           FlatButton(
             onPressed: () {
               try {
@@ -399,9 +397,10 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                   title: 'Accept the request',
                   desc: 'Your request has been added',
                   btnOkOnPress: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                       builder: (context) => SelectDrinkScreen(),
-                    ),);
+                    ), (route) => false);
+
                   },
                 )..show();
 
@@ -419,7 +418,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                 'Add to Cart',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: ScreenUtil().setSp(18),
                 ),
               ),
             ),

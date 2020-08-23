@@ -2,10 +2,13 @@
 import 'package:coffe/ui/loginAndRegistar/screen/loginScreen.dart';
 import 'package:coffe/ui/loginAndRegistar/screen/registarScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 
 class LoginAndRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Row(
@@ -35,7 +38,7 @@ class LoginAndRegister extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 30,
+            width: ScreenUtil().setWidth(30),
           ),
           Expanded(
             child: FlatButton(

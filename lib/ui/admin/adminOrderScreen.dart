@@ -6,6 +6,7 @@ import 'package:coffe/provider/order_provider.dart';
 import 'package:coffe/ui/admin/drinks.dart';
 import 'package:coffe/ui/home/homeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,7 @@ class AdminOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +26,7 @@ class AdminOrderScreen extends StatelessWidget {
           'Flutter coffee',
           style: GoogleFonts.pacifico(
             color: kPrimaryColor,
-            fontSize: 25,
+            fontSize: ScreenUtil().setSp(25),
             fontWeight: FontWeight.w200,
           ),
         ),
@@ -106,7 +108,7 @@ class AdminOrderScreen extends StatelessWidget {
                                 'Order ${index + 1}',
                                 style: GoogleFonts.roboto(
                                   color: kPrimaryColor,
-                                  fontSize: 20,
+                                  fontSize: ScreenUtil().setSp(20),
                                 ),
                               ),
                               children: <Widget>[
@@ -115,7 +117,7 @@ class AdminOrderScreen extends StatelessWidget {
                                     'Order${index + 1}',
                                     style: GoogleFonts.sourceSansPro(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 25,
+                                      fontSize: ScreenUtil().setSp(25),
                                       color: kSecondTextColor,
                                     ),
                                   ),
@@ -124,7 +126,7 @@ class AdminOrderScreen extends StatelessWidget {
                                   child: Divider(
                                     color: kPrimaryColor,
                                   ),
-                                  width: 100,
+                                  width: ScreenUtil().setWidth(100),
                                 ),
                                 Container(
                                   child: ListTile(
@@ -132,7 +134,7 @@ class AdminOrderScreen extends StatelessWidget {
                                       'Drinks',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kSecondTextColor,
                                       ),
                                     ),
@@ -153,13 +155,13 @@ class AdminOrderScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 5,
+                                  height: ScreenUtil().setHeight(5),
                                 ),
                                 SizedBox(
                                   child: Divider(
                                     color: kPrimaryColor,
                                   ),
-                                  width: 320,
+                                  width: ScreenUtil().setWidth(320),
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(
@@ -172,16 +174,16 @@ class AdminOrderScreen extends StatelessWidget {
                                         'Number of Drinks',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: ScreenUtil().setSp(20),
                                           color: kSecondTextColor,
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      SizedBox(width: ScreenUtil().setWidth(5)),
                                       Text(
                                         '${orders[index].totalNumber} Cups',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18,
+                                          fontSize: ScreenUtil().setSp(18),
                                           color: kPrimaryTextColor,
                                         ),
                                       ),
@@ -192,7 +194,7 @@ class AdminOrderScreen extends StatelessWidget {
                                   child: Divider(
                                     color: kPrimaryColor,
                                   ),
-                                  width: 320,
+                                  width: ScreenUtil().setWidth(320),
                                 ),
                                 Container(
                                   //color: Colors.deepOrange,
@@ -206,7 +208,7 @@ class AdminOrderScreen extends StatelessWidget {
                                         'Status',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: ScreenUtil().setSp(20),
                                           color: kSecondTextColor,
                                         ),
                                       ),
@@ -259,7 +261,7 @@ class AdminOrderScreen extends StatelessWidget {
                                   child: Divider(
                                     color: kPrimaryColor,
                                   ),
-                                  width: 320,
+                                  width: ScreenUtil().setWidth(320),
                                 ),
                                 Container(
                                   //height: 100,
@@ -274,7 +276,7 @@ class AdminOrderScreen extends StatelessWidget {
                                         'Request time',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: ScreenUtil().setSp(20),
                                           color: kSecondTextColor,
                                         ),
                                       ),
@@ -282,7 +284,7 @@ class AdminOrderScreen extends StatelessWidget {
                                         '${orders[index].date}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: ScreenUtil().setSp(20),
                                           color: kPrimaryTextColor,
                                         ),
                                       ),
@@ -293,7 +295,7 @@ class AdminOrderScreen extends StatelessWidget {
                                   child: Divider(
                                     color: kPrimaryColor,
                                   ),
-                                  width: 320,
+                                  width: ScreenUtil().setWidth(320),
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(
@@ -307,14 +309,14 @@ class AdminOrderScreen extends StatelessWidget {
                                         style: TextStyle(
                                           color: kSecondTextColor,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 18,
+                                          fontSize: ScreenUtil().setSp(18),
                                         ),
                                       ),
                                       Text(
                                         '${orders[index].totalPrice}\$',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: ScreenUtil().setSp(20),
                                           color: kPrimaryTextColor,
                                         ),
                                       ),
@@ -336,7 +338,7 @@ class AdminOrderScreen extends StatelessWidget {
                   'No Order',
                   style: GoogleFonts.sourceSansPro(
                     color: kPrimaryColor,
-                    fontSize: 20,
+                    fontSize: ScreenUtil().setSp(20),
                   ),
                 ),
               );

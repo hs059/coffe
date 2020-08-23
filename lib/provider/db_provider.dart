@@ -1,4 +1,4 @@
- import 'package:coffe/models/products.dart';
+ import 'package:coffe/models/productsSQL.dart';
 import 'package:coffe/repositories/db_repository.dart';
 import 'package:flutter/material.dart';
 

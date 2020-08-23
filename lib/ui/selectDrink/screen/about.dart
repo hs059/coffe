@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -27,7 +29,7 @@ class About extends StatelessWidget {
           Text(
             'Hussein .J',
             style: GoogleFonts.pacifico(
-              fontSize: 40.0,
+              fontSize: ScreenUtil().setSp(40),
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
@@ -36,14 +38,14 @@ class About extends StatelessWidget {
             'FLUTTER DEVELOPER',
             style: GoogleFonts.sourceSansPro(
               color: Colors.teal.shade100,
-              fontSize: 20.0,
+              fontSize: ScreenUtil().setSp(20.0),
               letterSpacing: 2.5,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
-            height: 20.0,
-            width: 150.0,
+            height: ScreenUtil().setHeight(20),
+            width: ScreenUtil().setWidth(150),
             child: Divider(
               color: Colors.teal.shade100,
             ),
@@ -59,7 +61,7 @@ class About extends StatelessWidget {
                   '+970595271311',
                   style: GoogleFonts.sourceSansPro(
                     color: Colors.teal.shade900,
-                    fontSize: 20.0,
+                    fontSize: ScreenUtil().setSp(20.0),
                   ),
                 ),
               )),
@@ -73,7 +75,7 @@ class About extends StatelessWidget {
                 title: Text(
                   'i.7seen1997@email.com',
                   style: GoogleFonts.sourceSansPro(
-                    fontSize: 20.0,
+                    fontSize: ScreenUtil().setSp(20.0),
                     color: Colors.teal.shade900,
                   ),
                 ),

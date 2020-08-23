@@ -5,11 +5,13 @@ import 'package:coffe/auth.dart';
 import 'package:coffe/models/order.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/provider/order_provider.dart';
+import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:coffe/provider/db_provider.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:coffe/models/products.dart';
+import 'package:coffe/models/productsSQL.dart';
 import 'package:coffe/constant.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -22,6 +24,7 @@ class MyCard extends StatelessWidget {
     MyProvider myProvider = Provider.of<MyProvider>(context, listen: false);
     OrderProvider orderProvider =
         Provider.of<OrderProvider>(context, listen: false);
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
 
     return Scaffold(
       backgroundColor: Color(0xFFF0F0EC),
@@ -80,7 +83,7 @@ class MyCard extends StatelessWidget {
                           allProducts[index].typeCoffee,
                           style: TextStyle(
                             color: kPrimaryColor,
-                            fontSize: 18,
+                            fontSize: ScreenUtil().setSp(20),
                           ),
                         ),
                         children: <Widget>[
@@ -89,18 +92,18 @@ class MyCard extends StatelessWidget {
                               '${allProducts[index].typeCoffee}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 25,
+                                fontSize: ScreenUtil().setSp(25),
                                 color: kSecondTextColor,
                               ),
                             ),
                           ),
                           SizedBox(
-                            height: 5,
+                            height:ScreenUtil().setHeight(5),
                           ),
                           Hero(
                             child: Image.asset(
                               allProducts[index].image,
-                              height: 40,
+                              height: ScreenUtil().setHeight(40),
                             ),
                             tag: '${allProducts[index].image}',
                           ),
@@ -108,8 +111,6 @@ class MyCard extends StatelessWidget {
                             color: kPrimaryColor,
                           ),
                           Container(
-                            //height: 100,
-                            //color: Colors.cyanAccent,
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,16 +122,16 @@ class MyCard extends StatelessWidget {
                                       'Price',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: ScreenUtil().setSp(18),
                                         color: kSecondTextColor,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
+                                    SizedBox(height: ScreenUtil().setHeight(5)),
                                     Text(
                                       '${allProducts[index].price}\$',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: ScreenUtil().setSp(18),
                                         color: Colors.brown[300],
                                       ),
                                     ),
@@ -141,7 +142,7 @@ class MyCard extends StatelessWidget {
                                     Text(
                                       '${allProducts[index].numCup}',
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: Colors.brown[300],
                                       ),
                                     ),
@@ -150,7 +151,7 @@ class MyCard extends StatelessWidget {
                                       'Cups',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: ScreenUtil().setSp(18),
                                         color: kSecondTextColor,
                                       ),
                                     ),
@@ -173,7 +174,7 @@ class MyCard extends StatelessWidget {
                                   'Size',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: ScreenUtil().setSp(20),
                                     color: kSecondTextColor,
                                   ),
                                 ),
@@ -185,7 +186,7 @@ class MyCard extends StatelessWidget {
                                           : 'Large',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    fontSize: ScreenUtil().setSp(18),
                                     color: kSecondTextColor,
                                   ),
                                 ),
@@ -196,8 +197,7 @@ class MyCard extends StatelessWidget {
                             color: kPrimaryColor,
                           ),
                           Container(
-                            //height: 100,
-                            //color: Colors.cyanAccent,
+
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 20),
                             child: Row(
@@ -209,7 +209,7 @@ class MyCard extends StatelessWidget {
                                       'Sugar',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontSize: ScreenUtil().setSp(20),
                                         color: kSecondTextColor,
                                       ),
                                     ),
@@ -223,7 +223,7 @@ class MyCard extends StatelessWidget {
                                           : '2 Sugar cubes',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    fontSize: ScreenUtil().setSp(18),
                                     color: kSecondTextColor,
                                   ),
                                 ),
@@ -244,14 +244,14 @@ class MyCard extends StatelessWidget {
                                   style: TextStyle(
                                     color: kSecondTextColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    fontSize: ScreenUtil().setSp(18),
                                   ),
                                 ),
                                 Text(
                                   '${allProducts[index].price * allProducts[index].numCup}\$',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: ScreenUtil().setSp(20),
                                     color: kPrimaryTextColor,
                                   ),
                                 ),
@@ -296,12 +296,15 @@ class MyCard extends StatelessWidget {
                       desc: 'total= ${myProvider.totalPriceInUi}\$',
                       btnOkOnPress: () {
                         dbProvider.deleteAllProduct();
-                        Navigator.pop(context);
+                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                          builder: (context) => SelectDrinkScreen(),
+                        ), (route) => false);
                       },
                     )..show();
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.all(Radius.circular(40)),
@@ -310,14 +313,11 @@ class MyCard extends StatelessWidget {
                       'Send the request',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize:ScreenUtil().setSp(18),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
             ],
           );
@@ -326,3 +326,4 @@ class MyCard extends StatelessWidget {
     );
   }
 }
+ 

@@ -1,5 +1,6 @@
 import 'package:coffe/provider/myProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:provider/provider.dart';
 
 class InputTextFormField extends StatelessWidget {
@@ -18,6 +19,7 @@ class InputTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 360,height:692,allowFontScaling: true);
     return TextFormField(
       validator: (value) => validator(value),
       onSaved: (newValue) => onSaved(newValue),
@@ -35,17 +37,17 @@ class InputTextFormField extends StatelessWidget {
         border: UnderlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFF8C746A),
-              width: 2,
+              width: ScreenUtil().setWidth(2),
             )),
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFF8C746A),
-              width: 2,
+              width: ScreenUtil().setWidth(2),
             )),
         enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: Colors.grey,
-              width: 0.5,
+              width: ScreenUtil().setWidth(0.5),
             )),
       ),
     );
