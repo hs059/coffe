@@ -52,7 +52,7 @@ class LoginGoogle extends StatelessWidget {
           }
 
         },
-        child: Container(
+        child: Container (
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

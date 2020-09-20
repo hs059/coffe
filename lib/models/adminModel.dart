@@ -1,21 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffe/repositories/db_client.dart';
 
-class ProductFS {
+class AdminProductModel {
   String documentId;
 
   String image;
   String typeCoffee;
   int price;
 
-  ProductFS({
+  AdminProductModel({
     this.image,
     this.typeCoffee,
     this.price,
 
   });
 
-  ProductFS.fromJson(DocumentSnapshot documentSnapshot) {
+  AdminProductModel.fromJson(DocumentSnapshot documentSnapshot) {
     this.documentId = documentSnapshot.documentID;
     this.typeCoffee =  documentSnapshot.data['typeCoffee'];
     this.price = int.parse(documentSnapshot.data['price']);

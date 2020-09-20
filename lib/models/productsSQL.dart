@@ -5,12 +5,10 @@ class Product {
   String typeCoffee;
   int price;
   int numCup;
-
   int sugar;
-
   int size;
-
   int id;
+  String userId;
 
   Product({
     this.image,
@@ -19,6 +17,7 @@ class Product {
     this.numCup,
     this.sugar,
     this.size,
+    this.userId ,
   });
 
   Product.fromJson(Map<String, dynamic> map) {
@@ -29,6 +28,7 @@ class Product {
     this.sugar = map[DBClient.dbClient.sugarColumn];
     this.size = map[DBClient.dbClient.sizeColumn];
     this.image=map[DBClient.dbClient.imageColumn];
+    this.userId=map[DBClient.dbClient.userIdColumn];
 
   }
 
@@ -40,6 +40,7 @@ class Product {
       DBClient.dbClient.sugarColumn: this.sugar,
       DBClient.dbClient.sizeColumn: this.size,
       DBClient.dbClient.imageColumn: this.image,
+      DBClient.dbClient.userIdColumn:this.userId,
     };
   }
 }

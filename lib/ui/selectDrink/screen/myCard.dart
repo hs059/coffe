@@ -46,7 +46,7 @@ class MyCard extends StatelessWidget {
       ),
       body: Consumer<DBProvider>(
         builder: (context, value, child) {
-          List<Product> allProducts = value.allProducts;
+          List<Product> allProducts = value.allProducts.where((element) => element.userId == Auth.userIdMajor ).toList();
           return Column(
             children: <Widget>[
               Expanded(

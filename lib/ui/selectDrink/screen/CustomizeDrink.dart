@@ -1,3 +1,4 @@
+import 'package:coffe/auth.dart';
 import 'package:coffe/constant.dart';
 import 'package:coffe/models/productsSQL.dart';
 import 'package:coffe/provider/db_provider.dart';
@@ -377,8 +378,9 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
           ),
           SizedBox(height: ScreenUtil().setHeight(20)),
           FlatButton(
-            onPressed: () {
+            onPressed: () async{
               try {
+                print(Auth.userIdMajor) ;
                 Product p = Product(
                   numCup: provider.numCup,
                   price: widget.productA.price,
@@ -386,6 +388,7 @@ class _CustomizeDrinkState extends State<CustomizeDrink> {
                   typeCoffee: widget.productA.typeCoffee,
                   size: provider.size,
                   image: widget.productA.image,
+                  userId: Auth.userIdMajor,
                 );
                 Provider.of<DBProvider>(context, listen: false)
                     .insertNewProduct(p);

@@ -18,6 +18,7 @@ class DBClient {
   final String priceColumn = 'priceColumn';
   final String sizeColumn = 'sizeColumn';
   final String imageColumn = 'imageColumn';
+  final String userIdColumn = 'userIdColumn';
 
   Database database;
 
@@ -32,7 +33,7 @@ class DBClient {
 
   Future<Database> connectToDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = join(directory.path, 'productsDp.db');
+    String path = join(directory.path, 'productsDb.db');
     Database database = await openDatabase(
       path,
       version: 1,
@@ -44,7 +45,8 @@ class DBClient {
           $sugarColumn INTEGER NOT NULL,
           $sizeColumn INTEGER NOT NULL,
           $priceColumn INTEGER NOT NULL,
-          $imageColumn TEXT NOT NULL
+          $imageColumn TEXT NOT NULL,
+          $userIdColumn TEXT NOT NULL
 
       )''');
       },

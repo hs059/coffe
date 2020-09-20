@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffe/constant.dart';
 import 'package:coffe/models/order.dart';
@@ -357,7 +358,7 @@ class AllOrderScreen extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: CircularProgressIndicator(),
+              child:Image(image: AssetImage('images/az.gif')),
             ),
           );
         }

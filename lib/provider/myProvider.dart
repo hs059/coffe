@@ -25,7 +25,6 @@ class MyProvider extends ChangeNotifier {
 
   changeSelcted( String value) {
     this.selected = value;
-    print(selected);
     notifyListeners();
   }
 

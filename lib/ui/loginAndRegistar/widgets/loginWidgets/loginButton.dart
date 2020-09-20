@@ -1,6 +1,7 @@
 import 'package:coffe/auth.dart';
 import 'package:coffe/provider/myProvider.dart';
 import 'package:coffe/ui/admin/adminOrderScreen.dart';
+import 'package:coffe/ui/admin/homeScreenAdmin.dart';
 import 'package:coffe/ui/selectDrink/screen/selectDrinkScreen.dart';
 
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class LoginButton extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AdminOrderScreen(),
+                  builder: (context) => HomeAdmin(),
                 ),
               );
             } else {

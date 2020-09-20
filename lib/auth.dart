@@ -4,12 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth {
   Auth._();
-
+   static String userIdMajor ;
   static final Auth auth = Auth._();
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   SharedPreferences sharedPreferences;
+
+  GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<SharedPreferences> initSp() async {
     if (sharedPreferences == null) {
@@ -19,7 +21,6 @@ class Auth {
     }
   }
 
-  GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<String> registerUsingEmailAndPassword(
       {String email, String password}) async {
@@ -43,6 +44,7 @@ class Auth {
   Future<String> getUserId() async {
     sharedPreferences = await initSp();
     String userId = sharedPreferences.getString('userId');
+    userIdMajor = userId ;
     return userId;
   }
 
@@ -82,10 +84,7 @@ class Auth {
           idToken: idToken, accessToken: accessToken);
       AuthResult authResult =
           await firebaseAuth.signInWithCredential(authCredential);
-      print('aaaaaaaaaa');
-
       String userId =  authResult.user.uid;
-      print('userId = $userId');
       sharedPreferences.setString('userId', userId);
       sharedPreferences.setBool('isLogin', true);
       if (authResult.user == null) {
@@ -106,3 +105,6 @@ class Auth {
     firebaseAuth.signOut();
   }
 }
+//git add .
+////git commit -m 'neww'
+////git push origin master
